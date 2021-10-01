@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Alert} from 'react-native';
 import {NavBar} from "./src/components/NavBar";
 import {MainScreen} from "./src/screens/MainScreen";
+import {TodoScreen} from "./src/screens/TodoScreen";
 
 export default function App() {
-    const [todos, setTodos] = useState([]);
+    const [todoId, setTodoId] = useState(null);
+    const [todos, setTodos] = useState([
+        {id: '1', title: 'Выучить React Native'},
+        {id: '2', title: 'Написать приложеие'},
+
+    ]);
     const addTodo = (title) => {
         setTodos(prev => [...prev, {
             id: Date.now().toString(),
@@ -12,16 +18,46 @@ export default function App() {
         }])
     }
     const removeTodo = (id) => {
-        setTodos(prev => prev.filter(todo => todo.id !== id))
+        const todo = todos.find(t => t.id === id)
+        Alert.alert(
+            'Delete element',
+            `Are you sure you want to delete ${todo.title}?`,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                        setTodoId(null)
+                        setTodos(prev => prev.filter(todo => todo.id !== id))
+                    }
+                },
+            ],
+            {cancelable: false}
+        )
+    }
+    let content = (
+        <MainScreen todos={todos}
+                    addTodo={addTodo}
+                    removeTodo={removeTodo}
+                    openTodo={setTodoId}
+        />
+    )
+    if (todoId) {
+        const selectedTodo = todos.find(todo => todo.id === todoId)
+        content = <TodoScreen goBack={() => setTodoId(null)}
+                              todo={selectedTodo}
+                              onRemove={removeTodo}
+        />
     }
     return (
         <View style={styles.appView}>
             <NavBar title="Todo list"/>
             <View style={styles.container}>
-                <MainScreen todos={todos}
-                            addTodo={addTodo}
-                            removeTodo={removeTodo}
-                />
+                {content}
             </View>
         </View>
     );
