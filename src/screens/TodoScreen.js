@@ -8,7 +8,7 @@ export const TodoScreen = ({goBack, todo, onRemove}) => {
     const [modal, setModal] = useState(false);
     return (
         <View>
-            <EditModal visible={modal}/>
+            <EditModal visible={modal} onCancel={()=>setModal(false)}/>
             <Text>{todo.title}</Text>
             <AppCart style={styles.carts}>
                 <Text style={styles.title}>{todo.title}</Text>
