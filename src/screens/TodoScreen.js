@@ -4,22 +4,33 @@ import {THEME} from '../theme';
 import {AppCart} from "../components/ui/AppCart";
 import {EditModal} from "../components/EditModal";
 
-export const TodoScreen = ({goBack, todo, onRemove}) => {
+export const TodoScreen = ({goBack, todo, onRemove, onSave}) => {
     const [modal, setModal] = useState(false);
+    const saveHandler = (title) => {
+        onSave(todo.id, title)
+        setModal(false)
+    }
     return (
         <View>
-            <EditModal visible={modal} onCancel={()=>setModal(false)}/>
+            <EditModal visible={modal}
+                       onCancel={() => setModal(false)}
+                       onSave={saveHandler}
+                       value={todo.title}
+            />
             <Text>{todo.title}</Text>
             <AppCart style={styles.carts}>
                 <Text style={styles.title}>{todo.title}</Text>
-                <Button title="Edit" onPress={()=>setModal(true)}/>
+                <Button title="Edit" onPress={() => setModal(true)}/>
             </AppCart>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <Button title="Back" color={THEME.GREY_COLOR} onPress={goBack}/>
+                    <Button title="Back"
+                            color={THEME.GREY_COLOR}
+                            onPress={goBack}/>
                 </View>
                 <View style={styles.button}>
-                    <Button title="Delete" color={THEME.DANGER_COLOR} onPress={() => onRemove(todo.id)}/>
+                    <Button title="Delete" color={THEME.DANGER_COLOR}
+                            onPress={() => onRemove(todo.id)}/>
                 </View>
             </View>
         </View>
