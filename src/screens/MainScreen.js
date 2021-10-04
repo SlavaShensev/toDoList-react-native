@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, FlatList, Image, Text} from 'react-native';
+import {StyleSheet, View, FlatList, Image} from 'react-native';
 import {AddTodo} from "../components/AddTodo";
 import {Todo} from "../components/Todo";
 
@@ -15,7 +15,6 @@ export const MainScreen = ({addTodo, todos, removeTodo, openTodo}) => {
     if(todos.length === 0) {
             content = <View styles={styles.imgWrap}>
                 <Image style={styles.img}
-                    // source={require('../../assets/img_hg.png')}
                        source={{
                            uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png'
                        }}

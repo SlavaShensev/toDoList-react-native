@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {FontAwesome, AntDesign} from '@expo/vector-icons';
 import {THEME} from '../theme';
 import {AppCart} from "../components/ui/AppCart";
 import {EditModal} from "../components/EditModal";
+import {AppTextBold} from "../components/ui/AppTextBold";
+import {AppButton} from "../components/ui/AppButton";
 
 export const TodoScreen = ({goBack, todo, onRemove, onSave}) => {
     const [modal, setModal] = useState(false);
@@ -17,20 +20,23 @@ export const TodoScreen = ({goBack, todo, onRemove, onSave}) => {
                        onSave={saveHandler}
                        value={todo.title}
             />
-            <Text>{todo.title}</Text>
+            <AppTextBold>{todo.title}</AppTextBold>
             <AppCart style={styles.carts}>
-                <Text style={styles.title}>{todo.title}</Text>
-                <Button title="Edit" onPress={() => setModal(true)}/>
+                <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
+                <AppButton onPress={() => setModal(true)}>
+                    <FontAwesome name='edit' size={20}/>
+                </AppButton>
             </AppCart>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <Button title="Back"
-                            color={THEME.GREY_COLOR}
-                            onPress={goBack}/>
+                    <AppButton color={THEME.GREY_COLOR} nPress={goBack}>
+                        Back
+                    </AppButton>
                 </View>
                 <View style={styles.button}>
-                    <Button title="Delete" color={THEME.DANGER_COLOR}
-                            onPress={() => onRemove(todo.id)}/>
+                    <AppButton color={THEME.DANGER_COLOR} onPress={() => onRemove(todo.id)}>
+                        Delete
+                    </AppButton>
                 </View>
             </View>
         </View>

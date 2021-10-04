@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 export const AppCart = (props) => <View style={ {...styles.default, ...props.style} }>
     {props.children}
