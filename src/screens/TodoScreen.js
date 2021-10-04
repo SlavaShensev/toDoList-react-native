@@ -29,13 +29,13 @@ export const TodoScreen = ({goBack, todo, onRemove, onSave}) => {
             </AppCart>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <AppButton color={THEME.GREY_COLOR} nPress={goBack}>
-                        Back
+                    <AppButton color={THEME.GREY_COLOR} onPress={goBack}>
+                        <AntDesign name='back' size={20} color='#fff'/>
                     </AppButton>
                 </View>
                 <View style={styles.button}>
                     <AppButton color={THEME.DANGER_COLOR} onPress={() => onRemove(todo.id)}>
-                        Delete
+                        <FontAwesome name='remove' size={20} color='#fff'/>
                     </AppButton>
                 </View>
             </View>
